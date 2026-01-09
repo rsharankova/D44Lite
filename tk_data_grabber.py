@@ -2,28 +2,35 @@ import sys,os
 import re
 import pkg_resources
 required  = {'tkcalendar', 'pandas', 'matplotlib'} 
-installed = {pkg.key for pkg in pkg_resources.working_set}
-missing   = required - installed
+#installed = {pkg.key for pkg in pkg_resources.working_set}
+#missing   = required - installed
+
 
 try:
     import tkinter as tk
     from tkinter import ttk
     from tkinter import filedialog as fd
     from tkinter.messagebox import showerror, showwarning
-    from tkcalendar import Calendar, DateEntry
     from datetime import datetime, timedelta
     from functools import reduce
     import data_grabber
     import config
-    
+
+    from tkcalendar import Calendar, DateEntry
+
     from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
     from matplotlib.figure import Figure
     import matplotlib.colors as mcolors
     from matplotlib import pyplot as plt
     import matplotlib.ticker as mt
+
     import pandas as pd
+
 except ImportError:
+
+    installed = {pkg for pkg in sys.modules.keys()}
+    missing   = required - installed
     sys.exit('''Missing dependencies. First run 
     pip install %s '''%(' '.join(missing)))
 
